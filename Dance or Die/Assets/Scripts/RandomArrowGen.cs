@@ -7,6 +7,8 @@ public class RandomArrowGen : MonoBehaviour
     private float timer;
     private int randomNum;
     [SerializeField] private float nextGenTime;
+    [SerializeField] private GameObject[] arrows;
+    [SerializeField] private Transform[] arrowSpawnPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,8 +24,13 @@ public class RandomArrowGen : MonoBehaviour
             timer = 0;
             randomNum = Random.Range(0,4);
             Debug.Log(randomNum);
-            //CreateArrow(randomNum)
+            CreateArrow(randomNum);
         }
+    }
+
+    private void CreateArrow(int num)
+    {
+        Instantiate(arrows[num], arrowSpawnPos[num]);
     }
 
     float timeIncrementer()
