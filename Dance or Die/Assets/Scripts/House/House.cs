@@ -16,7 +16,10 @@ public class House : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float killerSpeed;
     [SerializeField] private GameObject killer;
+    [SerializeField] private GameObject[] items;
     [SerializeField] private Transform[] killerSpawnPoints;
+    [SerializeField] private Transform[] itemSpawnPoints;
+    [SerializeField] private int roundsToSpawnItems;
 
     private enum Direction
     {
@@ -40,19 +43,16 @@ public class House : MonoBehaviour
         if (killerInstance != null)
             killerInstance.transform.position += (Vector3)killerDirVector * (killerSpeed + 0.5f * numRounds) * Time.deltaTime;
 
+        //Entering new rooms
         if (Mathf.Abs(transform.position.x) >= 5.5)
         {
             transform.position = new Vector3(-transform.position.x, transform.position.y, transform.position.z);
-
-            Destroy(killerInstance);
-            numRounds++;
+            NewRoom();
         }
         else if (Mathf.Abs(transform.position.y) >= 5.5)
         {
             transform.position = new Vector3(transform.position.x, -transform.position.y, transform.position.z);
-
-            Destroy(killerInstance);
-            numRounds++;
+            NewRoom();
         }
     }
 
@@ -69,6 +69,23 @@ public class House : MonoBehaviour
                 direction = Direction.Up;
             else if (dirVector.y < 0)
                 direction = Direction.Down;
+        }
+    }
+
+    private void NewRoom()
+    {
+        Destroy(killerInstance);
+        numRounds++;
+
+        if(numRounds >= roundsToSpawnItems)
+        {
+            int numItemsToSpawn = Random.Range(0, 4);
+            GameObject[] itemsSpawned = new GameObject[numItemsToSpawn];
+            for(int i = 0; i < numItemsToSpawn; i++) 
+            {
+                Transform itemSpawnPos = itemSpawnPoints[Random.Range(0, itemSpawnPoints.Length)];
+                //itemsSpawned[i] = Instantiate(items[i],)
+            }
         }
     }
 

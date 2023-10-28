@@ -10,7 +10,10 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         if (scoreText != null)
+        {
             scoreText.text = "Score: " + GameManager.score;
+            GameManager.score = 0;
+        }
     }
 
     public void Play()

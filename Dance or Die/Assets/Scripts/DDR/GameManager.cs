@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public static int numTimesCaught = 0;
     public static int score = 0;
 
-    public int curScore;
+    [HideInInspector] public int curScore;
 
     private float timer;
     private float nextGenTime;
