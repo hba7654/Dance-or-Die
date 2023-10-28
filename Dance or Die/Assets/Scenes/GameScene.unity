@@ -2024,6 +2024,7 @@ MonoBehaviour:
   score: 0
   minNextGenTime: 0.5
   maxNextGenTime: 2
+  winScore: 1000
   arrows:
   - {fileID: 4728912941920070358, guid: 030be3ec2243ffe4787776f37f87c052, type: 3}
   - {fileID: 4728912941920070358, guid: 4995811d952c1874fb7194db79e1a586, type: 3}

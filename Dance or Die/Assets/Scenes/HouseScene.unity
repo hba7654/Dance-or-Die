@@ -450,6 +450,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1153821475349471754, guid: f04d327cdd0778f4783944179beeaca7, type: 3}
+      propertyPath: killerSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1153821475349471754, guid: f04d327cdd0778f4783944179beeaca7, type: 3}
       propertyPath: killerSpawnPoints.Array.data[0]
       value: 
       objectReference: {fileID: 1164544353}

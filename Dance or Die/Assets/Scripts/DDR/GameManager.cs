@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    [HideInInspector] public int score;
+    public static int numTimesCaught = 0;
+    public static int score;
 
     private float timer;
     private float nextGenTime;
@@ -15,16 +17,20 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float minNextGenTime;
     [SerializeField] private float maxNextGenTime;
+    [SerializeField] private int winScore;
     [SerializeField] private GameObject[] arrows;
     [SerializeField] private Transform[] arrowSpawnPos;
     [SerializeField] private Text scoreText;
+
     // Start is called before the first frame update
     void Start()
     {
         score = 0;
         randomNum = 0;
         timer = 0;
-        nextGenTime = UnityEngine.Random.Range(minNextGenTime, maxNextGenTime);
+        nextGenTime = UnityEngine.Random.Range(minNextGenTime - 0.05f*numTimesCaught, maxNextGenTime - 0.2f*numTimesCaught);
+
+        numTimesCaught++;
     }
 
     // Update is called once per frame
@@ -32,14 +38,16 @@ public class GameManager : MonoBehaviour
     {
         timeIncrementer();
         if (timer > nextGenTime) {
-        nextGenTime = UnityEngine.Random.Range(minNextGenTime, maxNextGenTime);
             timer = 0;
-            nextGenTime = UnityEngine.Random.Range(minNextGenTime, maxNextGenTime);
+            nextGenTime = UnityEngine.Random.Range(minNextGenTime - 0.05f * numTimesCaught, maxNextGenTime - 0.2f * numTimesCaught);
             randomNum = UnityEngine.Random.Range(0,arrows.Length);
             //Debug.Log(randomNum);
             CreateArrow(randomNum);
         }
         scoreText.text = "Score: " + score;
+
+        if (score >= winScore)
+            SceneManager.LoadScene("HouseScene");
     }
 
     private void CreateArrow(int num)

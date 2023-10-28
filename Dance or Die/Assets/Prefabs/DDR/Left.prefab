@@ -28,12 +28,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4728912941920070358}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -3.07, y: 0.48, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!212 &7018804766530143081
 SpriteRenderer:
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   arrowSpeed: 10
+  arrowSpeedMult: 0.5
   arrowDir: {x: -1, y: 0}
   canMove: 1
   input1: 276

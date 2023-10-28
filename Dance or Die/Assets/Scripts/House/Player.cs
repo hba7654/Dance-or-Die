@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private Vector2 dirVector;
     private GameObject killerInstance;
     private Vector2 killerDirVector;
+    private int numRounds;
 
     [SerializeField] private float speed;
     [SerializeField] private float killerSpeed;
@@ -30,13 +31,14 @@ public class Player : MonoBehaviour
     {
         direction = Direction.None;
         dirVector = Vector2.zero;
+        numRounds = 0;
     }
 
     private void Update()
     {
         transform.position += (Vector3)dirVector * speed * Time.deltaTime;
         if(killerInstance != null)
-           killerInstance.transform.position += (Vector3)killerDirVector * killerSpeed * Time.deltaTime;
+           killerInstance.transform.position += (Vector3)killerDirVector * (killerSpeed + 0.5f*numRounds)* Time.deltaTime;
 
     }
 
@@ -59,6 +61,7 @@ public class Player : MonoBehaviour
     private void OnBecameInvisible()
     {
         Destroy(killerInstance);
+        numRounds++;
 
         if(Mathf.Abs(transform.position.y) >= 0.1f)
             transform.position = new Vector3(transform.position.x, -transform.position.y, transform.position.z);
@@ -70,7 +73,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Finish")
+        if (collision.tag == "Finish" && numRounds > 0)
         {
             direction = Direction.None;
             dirVector = Vector2.zero;

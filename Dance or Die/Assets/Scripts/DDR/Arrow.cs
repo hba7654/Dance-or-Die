@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Arrow : MonoBehaviour
 {
     public Type type;
 
     [SerializeField] private float arrowSpeed;
+    [SerializeField] private float arrowSpeedMult;
     [SerializeField] private Vector2 arrowDir;
     [SerializeField] private bool canMove;
     [SerializeField] private KeyCode input1;
@@ -21,7 +23,8 @@ public class Arrow : MonoBehaviour
         None,
         Perfect,
         Good,
-        OK
+        OK,
+        Death
     }
     public enum Type
     {
@@ -42,7 +45,7 @@ public class Arrow : MonoBehaviour
     void Update()
     {
         if(canMove)
-            transform.position += (Vector3)arrowDir * arrowSpeed * Time.deltaTime;
+            transform.position += (Vector3)arrowDir * (arrowSpeed + arrowSpeedMult*GameManager.numTimesCaught)* Time.deltaTime;
 
         //Debug.Log("Score is now " + scoreType.ToString());
 
@@ -62,9 +65,12 @@ public class Arrow : MonoBehaviour
                     gameManager.score += 25;
                     Destroy(gameObject);
                     break;
+                case Score.Death:
+                    Death();
+                    break;
                 default:
                     Debug.Log("STOOPID");
-                    Destroy(gameObject); 
+                    //Destroy(gameObject); 
                     break;
             }
 
@@ -74,6 +80,8 @@ public class Arrow : MonoBehaviour
 
     private void OnBecameInvisible()
     {
+        if (scoreType == Score.Death)
+            Death();
         Destroy(gameObject);
     }
 
@@ -99,8 +107,13 @@ public class Arrow : MonoBehaviour
     {
         if(collision.tag == "LastOK")
         {
-            scoreType = Score.None;
+            scoreType = Score.Death;
         }
+    }
+
+    private void Death()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
 }
