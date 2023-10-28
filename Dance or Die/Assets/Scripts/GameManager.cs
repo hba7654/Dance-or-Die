@@ -1,9 +1,13 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class RandomArrowGen : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
+    public int score;
+
     private float timer;
     private int randomNum;
     [SerializeField] private float nextGenTime;
@@ -12,6 +16,7 @@ public class RandomArrowGen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        score = 0;
         randomNum = 0;
         timer = 0;
     }
@@ -22,15 +27,15 @@ public class RandomArrowGen : MonoBehaviour
         timeIncrementer();
         if (timer > nextGenTime) {
             timer = 0;
-            randomNum = Random.Range(0,4);
-            Debug.Log(randomNum);
+            randomNum = UnityEngine.Random.Range(0,4);
+            //Debug.Log(randomNum);
             CreateArrow(randomNum);
         }
     }
 
     private void CreateArrow(int num)
     {
-        Instantiate(arrows[num], arrowSpawnPos[num]);
+        Instantiate(arrows[num], arrowSpawnPos[num].position, Quaternion.identity).GetComponent<Arrow>().type = Enum.Parse<Arrow.Type>(arrows[num].name);
     }
 
     float timeIncrementer()
