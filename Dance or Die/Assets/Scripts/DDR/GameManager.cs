@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
             timer = 0;
             nextGenTime = UnityEngine.Random.Range(minNextGenTime - 0.05f * numTimesCaught, maxNextGenTime - 0.2f * numTimesCaught);
             randomNum = UnityEngine.Random.Range(0,arrows.Length);
-            //Debug.Log(randomNum);
             CreateArrow(randomNum);
         }
         scoreText.text = "Score: " + score;

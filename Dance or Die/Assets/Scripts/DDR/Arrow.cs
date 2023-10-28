@@ -54,15 +54,15 @@ public class Arrow : MonoBehaviour
             switch (scoreType)
             {
                 case Score.Perfect:
-                    gameManager.score += 100;
+                    GameManager.score += 100;
                     Destroy(gameObject);
                     break;
                 case Score.Good:
-                    gameManager.score += 50;
+                    GameManager.score += 50;
                     Destroy(gameObject);
                     break;
                 case Score.OK:
-                    gameManager.score += 25;
+                    GameManager.score += 25;
                     Destroy(gameObject);
                     break;
                 case Score.Death:
@@ -74,7 +74,7 @@ public class Arrow : MonoBehaviour
                     break;
             }
 
-            Debug.Log(gameManager.score);
+            Debug.Log(GameManager.score);
         }
     }
 
