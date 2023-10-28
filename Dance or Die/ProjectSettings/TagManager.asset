@@ -7,6 +7,7 @@ TagManager:
   - Perfect
   - Good
   - OK
+  - LastOK
   layers:
   - Default
   - TransparentFX

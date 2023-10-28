@@ -14,6 +14,7 @@ public class Arrow : MonoBehaviour
 
     private GameManager gameManager;
     private Score scoreType;
+    private bool acceptingInput;
 
     private enum Score
     {
@@ -34,6 +35,7 @@ public class Arrow : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>(); 
         scoreType = Score.None;
+        acceptingInput = false;
     }
 
     // Update is called once per frame
@@ -44,7 +46,7 @@ public class Arrow : MonoBehaviour
 
         //Debug.Log("Score is now " + scoreType.ToString());
 
-        if (Input.GetKeyDown(input1) || Input.GetKeyDown(input2))
+        if (acceptingInput && (Input.GetKeyDown(input1) || Input.GetKeyDown(input2)))
         {
             switch (scoreType)
             {
@@ -77,6 +79,7 @@ public class Arrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        acceptingInput = true;
         switch(collision.tag)
         {
             case "Perfect":
@@ -86,6 +89,7 @@ public class Arrow : MonoBehaviour
                 scoreType = Score.Good;
                 break;
             case "OK":
+            case "LastOK":
                 scoreType = Score.OK;
                 break;
         }
@@ -93,7 +97,7 @@ public class Arrow : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.tag == "OK")
+        if(collision.tag == "LastOK")
         {
             scoreType = Score.None;
         }

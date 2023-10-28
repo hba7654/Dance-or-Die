@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 185122445}
   m_Layer: 0
   m_Name: Ok
-  m_TagString: OK
+  m_TagString: LastOK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2022,7 +2022,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  nextGenTime: 2
+  minNextGenTime: 0.5
+  maxNextGenTime: 2
   arrows:
   - {fileID: 4728912941920070358, guid: 030be3ec2243ffe4787776f37f87c052, type: 3}
   - {fileID: 4728912941920070358, guid: 4995811d952c1874fb7194db79e1a586, type: 3}
@@ -2425,7 +2426,7 @@ GameObject:
   - component: {fileID: 1684657153}
   m_Layer: 0
   m_Name: Ok
-  m_TagString: OK
+  m_TagString: LastOK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2502,7 +2503,7 @@ GameObject:
   - component: {fileID: 1741630563}
   m_Layer: 0
   m_Name: Ok
-  m_TagString: OK
+  m_TagString: LastOK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2686,7 +2687,7 @@ GameObject:
   - component: {fileID: 2075804675}
   m_Layer: 0
   m_Name: Ok
-  m_TagString: OK
+  m_TagString: LastOK
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
