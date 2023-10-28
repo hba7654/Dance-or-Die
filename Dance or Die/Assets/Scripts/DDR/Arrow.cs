@@ -14,7 +14,6 @@ public class Arrow : MonoBehaviour
     [SerializeField] private KeyCode input1;
     [SerializeField] private KeyCode input2;
 
-    private GameManager gameManager;
     private Score scoreType;
     private bool acceptingInput;
 
@@ -35,8 +34,7 @@ public class Arrow : MonoBehaviour
     }
 
     private void Start()
-    {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>(); 
+    { 
         scoreType = Score.None;
         acceptingInput = false;
     }
@@ -113,7 +111,7 @@ public class Arrow : MonoBehaviour
 
     private void Death()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("DeathScene");
     }
 
 }

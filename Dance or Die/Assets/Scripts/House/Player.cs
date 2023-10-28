@@ -80,11 +80,20 @@ public class Player : MonoBehaviour
             transform.position = Vector3.zero;
 
             //Spawn killer
-            int randPos = Random.Range(0, killerSpawnPoints.Length);
-            killerInstance = Instantiate(killer, killerSpawnPoints[randPos].position, Quaternion.identity);
-            killerDirVector = -(killerSpawnPoints[randPos].position - transform.position).normalized;
-        }
+            StartCoroutine(SpawnKiller());
+            }
         else if (collision.tag == "Killer")
             SceneManager.LoadScene("GameScene");
+    }
+
+    private IEnumerator SpawnKiller()
+    {
+        float timeToWait = Random.Range(0, 10f);
+        Debug.Log("WAITING FOR " + timeToWait + " SECONDS");
+        yield return new WaitForSeconds(timeToWait);
+
+        int randPos = Random.Range(0, killerSpawnPoints.Length);
+        killerInstance = Instantiate(killer, killerSpawnPoints[randPos].position, Quaternion.identity);
+        killerDirVector = -(killerSpawnPoints[randPos].position - transform.position).normalized;
     }
 }

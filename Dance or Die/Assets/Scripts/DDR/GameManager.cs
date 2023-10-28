@@ -9,15 +9,16 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static int numTimesCaught = 0;
-    public static int score;
+    public static int score = 0;
 
     private float timer;
     private float nextGenTime;
     private int randomNum;
+    private int winScore;
 
     [SerializeField] private float minNextGenTime;
     [SerializeField] private float maxNextGenTime;
-    [SerializeField] private int winScore;
+    [SerializeField] private int roundScore;
     [SerializeField] private GameObject[] arrows;
     [SerializeField] private Transform[] arrowSpawnPos;
     [SerializeField] private Text scoreText;
@@ -25,12 +26,13 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        score = 0;
+        numTimesCaught++;
+
+        winScore += numTimesCaught * roundScore;
         randomNum = 0;
         timer = 0;
         nextGenTime = UnityEngine.Random.Range(minNextGenTime - 0.05f*numTimesCaught, maxNextGenTime - 0.2f*numTimesCaught);
 
-        numTimesCaught++;
     }
 
     // Update is called once per frame
