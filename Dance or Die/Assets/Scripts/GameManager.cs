@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,9 +11,11 @@ public class GameManager : MonoBehaviour
 
     private float timer;
     private int randomNum;
+
     [SerializeField] private float nextGenTime;
     [SerializeField] private GameObject[] arrows;
     [SerializeField] private Transform[] arrowSpawnPos;
+    [SerializeField] private Text scoreText;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +34,7 @@ public class GameManager : MonoBehaviour
             //Debug.Log(randomNum);
             CreateArrow(randomNum);
         }
+        scoreText.text = "Score: " + score;
     }
 
     private void CreateArrow(int num)

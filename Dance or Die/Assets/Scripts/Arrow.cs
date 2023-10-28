@@ -9,6 +9,8 @@ public class Arrow : MonoBehaviour
     [SerializeField] private float arrowSpeed;
     [SerializeField] private Vector2 arrowDir;
     [SerializeField] private bool canMove;
+    [SerializeField] private KeyCode input1;
+    [SerializeField] private KeyCode input2;
 
     private GameManager gameManager;
     private Score scoreType;
@@ -31,7 +33,6 @@ public class Arrow : MonoBehaviour
     private void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>(); 
-        Debug.Log("Arrow type is " + type.ToString());
         scoreType = Score.None;
     }
 
@@ -43,8 +44,7 @@ public class Arrow : MonoBehaviour
 
         //Debug.Log("Score is now " + scoreType.ToString());
 
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyUp(KeyCode.D) ||
-            Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
+        if (Input.GetKeyDown(input1) || Input.GetKeyDown(input2))
         {
             switch (scoreType)
             {
@@ -88,7 +88,8 @@ public class Arrow : MonoBehaviour
             case "OK":
                 scoreType = Score.OK;
                 break;
-            }
+        }
+        Debug.Log("Score type is " + scoreType.ToString());
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

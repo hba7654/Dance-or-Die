@@ -99,9 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c351e42d388f7f4e8936c513f77baff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
   arrowSpeed: 10
   arrowDir: {x: -1, y: 0}
   canMove: 1
+  input1: 273
+  input2: 119
 --- !u!61 &3133345795693484107
 BoxCollider2D:
   m_ObjectHideFlags: 0
