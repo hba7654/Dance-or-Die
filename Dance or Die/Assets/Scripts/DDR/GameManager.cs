@@ -56,6 +56,6 @@ public class GameManager : MonoBehaviour
 
     private void CreateArrow(int num)
     {
-        Instantiate(arrows[num], arrowSpawnPos[num]).GetComponent<Arrow>().type = Enum.Parse<Arrow.Type>(arrows[num].name);
+        Instantiate(arrows[num], arrowSpawnPos[num]).GetComponent<Arrow>();
     }
 }

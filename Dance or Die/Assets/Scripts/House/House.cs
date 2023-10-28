@@ -74,6 +74,8 @@ public class House : MonoBehaviour
 
     private void NewRoom()
     {
+        GameManager.score += 25;
+
         Destroy(killerInstance);
         numRounds++;
 

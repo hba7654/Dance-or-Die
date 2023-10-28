@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
         {
             scoreText.text = "Score: " + GameManager.score;
             GameManager.score = 0;
+            GameManager.numTimesCaught = 0;
         }
     }
 
