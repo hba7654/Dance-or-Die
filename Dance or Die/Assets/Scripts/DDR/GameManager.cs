@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
         nextGenTime = UnityEngine.Random.Range(minNextGenTime, maxNextGenTime);
             timer = 0;
             nextGenTime = UnityEngine.Random.Range(minNextGenTime, maxNextGenTime);
-            randomNum = UnityEngine.Random.Range(0,4);
+            randomNum = UnityEngine.Random.Range(0,arrows.Length);
             //Debug.Log(randomNum);
             CreateArrow(randomNum);
         }

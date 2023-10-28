@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
     private Direction direction;
     private Vector2 dirVector;
+    private GameObject killerInstance;
+    private Vector2 killerDirVector;
 
     [SerializeField] private float speed;
+    [SerializeField] private float killerSpeed;
+    [SerializeField] private GameObject killer;
+    [SerializeField] private Transform[] killerSpawnPoints;
 
     private enum Direction
     {
@@ -29,6 +35,9 @@ public class Player : MonoBehaviour
     private void Update()
     {
         transform.position += (Vector3)dirVector * speed * Time.deltaTime;
+        if(killerInstance != null)
+           killerInstance.transform.position += (Vector3)killerDirVector * killerSpeed * Time.deltaTime;
+
     }
 
     public void Input(InputAction.CallbackContext context)
@@ -49,6 +58,8 @@ public class Player : MonoBehaviour
 
     private void OnBecameInvisible()
     {
+        Destroy(killerInstance);
+
         if(Mathf.Abs(transform.position.y) >= 0.1f)
             transform.position = new Vector3(transform.position.x, -transform.position.y, transform.position.z);
 
@@ -59,11 +70,18 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Finish")
+        if (collision.tag == "Finish")
         {
             direction = Direction.None;
             dirVector = Vector2.zero;
             transform.position = Vector3.zero;
+
+            //Spawn killer
+            int randPos = Random.Range(0, killerSpawnPoints.Length);
+            killerInstance = Instantiate(killer, killerSpawnPoints[randPos].position, Quaternion.identity);
+            killerDirVector = -(killerSpawnPoints[randPos].position - transform.position).normalized;
         }
+        else if (collision.tag == "Killer")
+            SceneManager.LoadScene("GameScene");
     }
 }

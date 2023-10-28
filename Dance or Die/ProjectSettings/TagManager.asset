@@ -8,6 +8,7 @@ TagManager:
   - Good
   - OK
   - LastOK
+  - Killer
   layers:
   - Default
   - TransparentFX
