@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour
+public class House : MonoBehaviour
 {
     private Direction direction;
     private Vector2 dirVector;
@@ -37,9 +37,23 @@ public class Player : MonoBehaviour
     private void Update()
     {
         transform.position += (Vector3)dirVector * speed * Time.deltaTime;
-        if(killerInstance != null)
-           killerInstance.transform.position += (Vector3)killerDirVector * (killerSpeed + 0.5f*numRounds)* Time.deltaTime;
+        if (killerInstance != null)
+            killerInstance.transform.position += (Vector3)killerDirVector * (killerSpeed + 0.5f * numRounds) * Time.deltaTime;
 
+        if (Mathf.Abs(transform.position.x) >= 5.5)
+        {
+            transform.position = new Vector3(-transform.position.x, transform.position.y, transform.position.z);
+
+            Destroy(killerInstance);
+            numRounds++;
+        }
+        else if (Mathf.Abs(transform.position.y) >= 5.5)
+        {
+            transform.position = new Vector3(transform.position.x, -transform.position.y, transform.position.z);
+
+            Destroy(killerInstance);
+            numRounds++;
+        }
     }
 
     public void Input(InputAction.CallbackContext context)
@@ -58,18 +72,18 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void OnBecameInvisible()
-    {
-        Destroy(killerInstance);
-        numRounds++;
+    //private void OnBecameInvisible()
+    //{
+    //    Destroy(killerInstance);
+    //    numRounds++;
 
-        if(Mathf.Abs(transform.position.y) >= 0.1f)
-            transform.position = new Vector3(transform.position.x, -transform.position.y, transform.position.z);
+    //    if(Mathf.Abs(transform.position.y) >= 0.1f)
+    //        transform.position = new Vector3(transform.position.x, -transform.position.y, transform.position.z);
 
-        else
-            transform.position = new Vector3(-transform.position.x, transform.position.y, transform.position.z);
+    //    else
+    //        transform.position = new Vector3(-transform.position.x, transform.position.y, transform.position.z);
 
-    }
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -88,12 +102,14 @@ public class Player : MonoBehaviour
 
     private IEnumerator SpawnKiller()
     {
-        float timeToWait = Random.Range(0, 10f);
-        Debug.Log("WAITING FOR " + timeToWait + " SECONDS");
-        yield return new WaitForSeconds(timeToWait);
+        //float timeToWait = Random.Range(0, 10f);
+        //Debug.Log("WAITING FOR " + timeToWait + " SECONDS");
+        //yield return new WaitForSeconds(timeToWait);
 
         int randPos = Random.Range(0, killerSpawnPoints.Length);
         killerInstance = Instantiate(killer, killerSpawnPoints[randPos].position, Quaternion.identity);
         killerDirVector = -(killerSpawnPoints[randPos].position - transform.position).normalized;
+
+        yield return null;
     }
 }

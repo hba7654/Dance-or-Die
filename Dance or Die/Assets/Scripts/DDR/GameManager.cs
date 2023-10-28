@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public static int numTimesCaught = 0;
     public static int score = 0;
 
+    public int curScore;
+
     private float timer;
     private float nextGenTime;
     private int randomNum;
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
         winScore += numTimesCaught * roundScore;
         randomNum = 0;
         timer = 0;
+        curScore = 0;
         nextGenTime = UnityEngine.Random.Range(minNextGenTime - 0.05f*numTimesCaught, maxNextGenTime - 0.2f*numTimesCaught);
 
     }
@@ -38,7 +41,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeIncrementer();
+        timer += Time.deltaTime;
         if (timer > nextGenTime) {
             timer = 0;
             nextGenTime = UnityEngine.Random.Range(minNextGenTime - 0.05f * numTimesCaught, maxNextGenTime - 0.2f * numTimesCaught);
@@ -47,17 +50,12 @@ public class GameManager : MonoBehaviour
         }
         scoreText.text = "Score: " + score;
 
-        if (score >= winScore)
+        if (curScore >= winScore)
             SceneManager.LoadScene("HouseScene");
     }
 
     private void CreateArrow(int num)
     {
         Instantiate(arrows[num], arrowSpawnPos[num].position, Quaternion.identity).GetComponent<Arrow>().type = Enum.Parse<Arrow.Type>(arrows[num].name);
-    }
-
-    float timeIncrementer()
-    {
-        return timer += Time.deltaTime;
     }
 }

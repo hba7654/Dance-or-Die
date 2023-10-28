@@ -16,6 +16,7 @@ public class Arrow : MonoBehaviour
 
     private Score scoreType;
     private bool acceptingInput;
+    private GameManager gameManager;
 
     private enum Score
     {
@@ -37,6 +38,8 @@ public class Arrow : MonoBehaviour
     { 
         scoreType = Score.None;
         acceptingInput = false;
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -52,14 +55,17 @@ public class Arrow : MonoBehaviour
             switch (scoreType)
             {
                 case Score.Perfect:
+                    gameManager.curScore += 100;
                     GameManager.score += 100;
                     Destroy(gameObject);
                     break;
                 case Score.Good:
+                    gameManager.curScore += 50;
                     GameManager.score += 50;
                     Destroy(gameObject);
                     break;
                 case Score.OK:
+                    gameManager.curScore += 25;
                     GameManager.score += 25;
                     Destroy(gameObject);
                     break;
