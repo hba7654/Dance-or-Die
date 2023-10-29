@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     private float genTimer;
     private float nextGenTime;
     private int randomNum;
-    private int winScore;
 
     [SerializeField] private float minNextGenTime;
     [SerializeField] private float maxNextGenTime;
@@ -28,19 +27,20 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text scoreText;
     [SerializeField] private Text timeText;
     [SerializeField] private Text livesText;
+    [SerializeField] private AudioSource musicPlayer;
+    [SerializeField] private AudioClip[] musicTracks;
 
     // Start is called before the first frame update
     void Start()
     {
         numTimesCaught++;
 
-        winScore += numTimesCaught * roundScore;
         randomNum = 0;
         timer = timeToWin;
         genTimer = 0;
         curScore = 0;
         nextGenTime = UnityEngine.Random.Range(minNextGenTime - 0.05f*numTimesCaught, maxNextGenTime - 0.2f*numTimesCaught);
-
+        musicPlayer.clip = musicTracks[UnityEngine.Random.Range(0, musicTracks.Length)];
     }
 
     // Update is called once per frame
