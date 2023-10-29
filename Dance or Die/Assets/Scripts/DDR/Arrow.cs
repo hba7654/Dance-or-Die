@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Arrow : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class Arrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.position += (Vector3)arrowDir * (arrowSpeed + arrowSpeedMult * GameManager.numTimesCaught) * Time.deltaTime;
         //Debug.Log("Score is now " + scoreType.ToString());
 
         if (acceptingInput && (Input.GetKeyDown(input1) || Input.GetKeyDown(input2)))
@@ -41,17 +43,18 @@ public class Arrow : MonoBehaviour
             switch (scoreType)
             {
                 case Score.Perfect:
-                    gameManager.curScore += 100;
+                    gameManager.timer -= 10;
+                    //gameManager.curScore += 100;
                     //GameManager.score += 100;
                     Destroy(gameObject);
                     break;
                 case Score.Good:
-                    gameManager.curScore += 50;
+                    //gameManager.curScore += 50;
                     //GameManager.score += 50;
                     Destroy(gameObject);
                     break;
                 case Score.OK:
-                    gameManager.curScore += 25;
+                    //gameManager.curScore += 25;
                     //GameManager.score += 25;
                     Destroy(gameObject);
                     break;

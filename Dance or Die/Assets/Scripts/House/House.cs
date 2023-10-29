@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class House : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class House : MonoBehaviour
     [SerializeField] private Transform[] killerSpawnPoints;
     [SerializeField] private Transform[] itemSpawnPoints;
     [SerializeField] private int roundsToSpawnItems;
+
+    [SerializeField] private Text scoreText;
 
     private enum Direction
     {
@@ -39,6 +42,8 @@ public class House : MonoBehaviour
 
     private void Update()
     {
+        scoreText.text = "Score: " + GameManager.score;
+
         transform.position += (Vector3)dirVector * speed * Time.deltaTime;
         if (killerInstance != null)
             killerInstance.transform.position += (Vector3)killerDirVector * (killerSpeed + 0.5f * numRounds) * Time.deltaTime;
