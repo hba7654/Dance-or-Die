@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canMove: 1
+  flipDodge: 0
   arrowSpeed: 10
   arrowSpeedMult: 0.5
   arrowDir: {x: -1, y: 0}
@@ -107,7 +108,7 @@ MonoBehaviour:
   input2: 115
   dodgeSprite: {fileID: 579320992, guid: 5d4a6fce5d98dc64387f306f2ab47d6b, type: 3}
   idleSprite: {fileID: 921894715, guid: ca8418594d5c6b54e9bc00f79151248e, type: 3}
-  stabSprite: {fileID: 625151456, guid: 62f30454ec3fa994d983de3e0f99cd1c, type: 3}
+  stabSprite: {fileID: 965205244, guid: ffe42d37038a00547a102340960a857a, type: 3}
   standSprite: {fileID: -1853123492, guid: c38e8fbf103e2f74f988469597142952, type: 3}
 --- !u!61 &1735274639889192071
 BoxCollider2D:
