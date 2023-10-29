@@ -106,7 +106,7 @@ MonoBehaviour:
   arrowDir: {x: -1, y: 0}
   input1: 275
   input2: 100
-  dodgeSprite: {fileID: -536427161, guid: a591570271b883244b958d9a763359b0, type: 3}
+  dodgeSprite: {fileID: 21300000, guid: 40c2f0ae88ccb1d418486d102355cb67, type: 3}
   idleSprite: {fileID: 921894715, guid: ca8418594d5c6b54e9bc00f79151248e, type: 3}
   stabSprite: {fileID: 625151456, guid: 62f30454ec3fa994d983de3e0f99cd1c, type: 3}
   standSprite: {fileID: -1853123492, guid: c38e8fbf103e2f74f988469597142952, type: 3}
