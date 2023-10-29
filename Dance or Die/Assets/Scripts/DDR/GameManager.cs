@@ -11,15 +11,17 @@ public class GameManager : MonoBehaviour
     public static int numTimesCaught = 0;
     public static int score = 0;
 
+    [HideInInspector] public float timer;
     [HideInInspector] public int curScore;
 
-    private float timer;
+    private float genTimer;
     private float nextGenTime;
     private int randomNum;
     private int winScore;
 
     [SerializeField] private float minNextGenTime;
     [SerializeField] private float maxNextGenTime;
+    [SerializeField] private float timeToWin;
     [SerializeField] private int roundScore;
     [SerializeField] private GameObject[] arrows;
     [SerializeField] private Transform[] arrowSpawnPos;
@@ -32,7 +34,8 @@ public class GameManager : MonoBehaviour
 
         winScore += numTimesCaught * roundScore;
         randomNum = 0;
-        timer = 0;
+        timer = timeToWin;
+        genTimer = 0;
         curScore = 0;
         nextGenTime = UnityEngine.Random.Range(minNextGenTime - 0.05f*numTimesCaught, maxNextGenTime - 0.2f*numTimesCaught);
 
@@ -41,21 +44,25 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer > nextGenTime) {
-            timer = 0;
+        genTimer += Time.deltaTime;
+        timer -= Time.deltaTime;
+        if (genTimer > nextGenTime) {
+            genTimer = 0;
             nextGenTime = UnityEngine.Random.Range(minNextGenTime - 0.05f * numTimesCaught, maxNextGenTime - 0.2f * numTimesCaught);
             randomNum = UnityEngine.Random.Range(0,arrows.Length);
             CreateArrow(randomNum);
         }
-        scoreText.text = "Score: " + score;
+        scoreText.text = "DANCE! " + timer;
 
-        if (curScore >= winScore)
+        if (timer <= 0)
+        {
+            score += 50;
             SceneManager.LoadScene("HouseScene");
+        }
     }
 
     private void CreateArrow(int num)
     {
-        Instantiate(arrows[num], arrowSpawnPos[num]).GetComponent<Arrow>().type = Enum.Parse<Arrow.Type>(arrows[num].name);
+        Instantiate(arrows[num], arrowSpawnPos[num]).GetComponent<Arrow>();
     }
 }

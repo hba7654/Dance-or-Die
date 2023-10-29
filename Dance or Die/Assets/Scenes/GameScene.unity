@@ -2105,9 +2105,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98e41e92466094e41bda7acf17710670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
   curScore: 0
   minNextGenTime: 0.5
   maxNextGenTime: 2
+  timeToWin: 60
   roundScore: 1000
   arrows:
   - {fileID: 4728912941920070358, guid: 030be3ec2243ffe4787776f37f87c052, type: 3}
