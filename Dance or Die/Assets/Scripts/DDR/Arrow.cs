@@ -18,6 +18,7 @@ public class Arrow : MonoBehaviour
     private Text livesText;
     private SpriteRenderer player;
     private SpriteRenderer sr;
+    private BoxCollider2D box;
 
     public static int lives = 5;
 
@@ -45,6 +46,7 @@ public class Arrow : MonoBehaviour
 
         player = GameObject.Find("Player").GetComponent<SpriteRenderer>();
         sr = GetComponent<SpriteRenderer>();
+        box = GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -61,19 +63,13 @@ public class Arrow : MonoBehaviour
             {
                 case Score.Perfect:
                     gameManager.timer -= 10;
-                    //gameManager.curScore += 100;
-                    //GameManager.score += 100;
-                    // Destroy(gameObject);
+                    sr.enabled = false;
+                    box.enabled = false;
                     break;
                 case Score.Good:
-                    //gameManager.curScore += 50;
-                    //GameManager.score += 50;
-                    // Destroy(gameObject);
                 case Score.OK:
-                    //gameManager.curScore += 25;
-                    //GameManager.score += 25;
-                    // Destroy(gameObject);
                     sr.enabled = false;
+                    box.enabled = false;
                     break;
                 case Score.Death:
                     Death();

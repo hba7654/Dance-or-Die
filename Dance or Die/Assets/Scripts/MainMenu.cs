@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] private Text scoreText;
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject howToPlayMenu;
     private void Start()
     {
         if (scoreText != null)
@@ -30,5 +32,11 @@ public class MainMenu : MonoBehaviour
     public void Quit()
     {
         Application.Quit();
+    }
+
+    public void HowToPlay()
+    {
+        mainMenu.SetActive(!mainMenu.activeInHierarchy);
+        howToPlayMenu.SetActive(!mainMenu.activeInHierarchy);
     }
 }
