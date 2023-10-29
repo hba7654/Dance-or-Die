@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Arrow : MonoBehaviour
 {
     [SerializeField] private bool canMove;
+    [SerializeField] private bool flipDodge;
     [SerializeField] private float arrowSpeed;
     [SerializeField] private float arrowSpeedMult;
     [SerializeField] private Vector2 arrowDir;
@@ -18,7 +19,6 @@ public class Arrow : MonoBehaviour
     [SerializeField] private Sprite stabSprite;
     [SerializeField] private Sprite standSprite;
 
-    private Text livesText;
     private SpriteRenderer player;
     private SpriteRenderer killer;
     private SpriteRenderer sr;
@@ -44,9 +44,6 @@ public class Arrow : MonoBehaviour
         acceptingInput = false;
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-        livesText = GameObject.Find("Lives").GetComponent<Text>();
-        livesText.text = "Lives: " + lives;
 
         player = GameObject.Find("Player").GetComponent<SpriteRenderer>();
         killer = GameObject.Find("Killer").GetComponent<SpriteRenderer>();
@@ -129,7 +126,6 @@ public class Arrow : MonoBehaviour
     private void Death()
     {
         lives--;
-        livesText.text = "Lives: " + lives;
 
         if (lives == 0)
         {
@@ -140,16 +136,18 @@ public class Arrow : MonoBehaviour
 
     private IEnumerator Dodge()
     {
-     
-        player.sprite = dodgeSprite;
-        Debug.Log("Dodging");
+        if(flipDodge)
+            player.flipX = true;
 
-        yield return new WaitForSeconds(0.5f / GameManager.numTimesCaught);
+        player.sprite = dodgeSprite;
+        yield return new WaitForSeconds(0.5f - 0.05f*GameManager.numTimesCaught);
+
+        if (flipDodge)
+            player.flipX = false;
 
         player.sprite = idleSprite;
-        Debug.Log("idle");
 
-        if(canMove)
+        if (canMove && !sr.enabled)
             Destroy(gameObject);
         yield return null;
     }
@@ -157,12 +155,10 @@ public class Arrow : MonoBehaviour
     private IEnumerator Stab()
     {
         killer.sprite = stabSprite;
-        Debug.Log("Dodging");
 
-        yield return new WaitForSeconds(0.5f / GameManager.numTimesCaught);
+        yield return new WaitForSeconds(0.5f - 0.05f * GameManager.numTimesCaught);
 
         killer.sprite = standSprite;
-        Debug.Log("idle");
 
         yield return null;
     }

@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] arrows;
     [SerializeField] private Transform[] arrowSpawnPos;
     [SerializeField] private Text scoreText;
+    [SerializeField] private Text timeText;
+    [SerializeField] private Text livesText;
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +54,9 @@ public class GameManager : MonoBehaviour
             randomNum = UnityEngine.Random.Range(0,arrows.Length);
             CreateArrow(randomNum);
         }
-        scoreText.text = String.Format("DANCE! {0:F2}",timer);
+        timeText.text = String.Format("DANCE! {0:F2}",timer);
+        scoreText.text = "Score: " + score;
+        livesText.text = "Lives: " + Arrow.lives;
 
         if (timer <= 0)
         {

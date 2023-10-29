@@ -15,6 +15,9 @@ public class House : MonoBehaviour
     private int numRounds;
     private bool isSafe;
     private GameObject itemSpawned;
+    private bool inMiddle;
+    private SpriteRenderer sr;
+    private int animCounter;
 
     [SerializeField] private float speed;
     [SerializeField] private float killerSpeed;
@@ -24,8 +27,10 @@ public class House : MonoBehaviour
     [SerializeField] private Transform[] itemSpawnPoints;
     [SerializeField] private int roundsToSpawnItems;
     [SerializeField] private GameObject[] doors;
-
     [SerializeField] private Text scoreText;
+    [SerializeField] private Text livesText;
+    [SerializeField] private Sprite[] playerSprites;
+    [SerializeField] private Sprite[] killerSprites;
 
     private enum Direction
     {
@@ -42,11 +47,15 @@ public class House : MonoBehaviour
         dirVector = Vector2.zero;
         numRounds = 0;
         isSafe = false;
+        inMiddle = true;
+        sr = GetComponent<SpriteRenderer>();
+        animCounter = 0;
     }
 
     private void Update()
     {
         scoreText.text = "Score: " + GameManager.score;
+        livesText.text = "Lives: " + Arrow.lives;
 
         transform.position += (Vector3)dirVector * speed * Time.deltaTime;
         if (killerInstance != null)
@@ -57,7 +66,7 @@ public class House : MonoBehaviour
         {
             if (isSafe)
             {
-                transform.position = new Vector3(-transform.position.x, transform.position.y, transform.position.z);
+                transform.position = new Vector3(-5.4f * Mathf.Sign(transform.position.x), transform.position.y, transform.position.z);
                 NewRoom();
             }
             else
@@ -67,7 +76,7 @@ public class House : MonoBehaviour
         {
             if (isSafe)
             {
-                transform.position = new Vector3(transform.position.x, -transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x, -5.4f * Mathf.Sign(transform.position.y), transform.position.z);
                 NewRoom();
             }
             else
@@ -77,17 +86,27 @@ public class House : MonoBehaviour
 
     public void Input(InputAction.CallbackContext context)
     {
-        if (direction == Direction.None)
+        if (context.started && direction == Direction.None)
         {
+            StartCoroutine(Animate());
             dirVector = context.ReadValue<Vector2>();
+            transform.rotation = Quaternion.AngleAxis(Mathf.Rad2Deg * Mathf.Atan2(dirVector.x, -dirVector.y) + 20, new Vector3(0, 0, 1));
             if (dirVector.x > 0)
+            {
                 direction = Direction.Right;
+            }
             else if (dirVector.x < 0)
+            {
                 direction = Direction.Left;
+            }
             else if (dirVector.y > 0)
+            {
                 direction = Direction.Up;
+            }
             else if (dirVector.y < 0)
+            {
                 direction = Direction.Down;
+            }
         }
     }
 
@@ -121,6 +140,8 @@ public class House : MonoBehaviour
             case "Finish":
                 if(numRounds > 0)
                 {
+                    inMiddle = true;
+
                     direction = Direction.None;
                     dirVector = Vector2.zero;
                     transform.position = Vector3.zero;
@@ -164,11 +185,25 @@ public class House : MonoBehaviour
         killerInstance = Instantiate(killer, killerSpawnPoints[randPos]);
         killerDirVector = -(killerSpawnPoints[randPos].position - transform.position).normalized;
 
-        yield return null;
+        while (true)
+        {
+            killerInstance.GetComponent<SpriteRenderer>().sprite = killerSprites[animCounter];
+            animCounter = (animCounter + 1) % 2;
+            yield return new WaitForSeconds(0.25f);
+        }
     }
 
     private void Caught()
     {
         SceneManager.LoadScene("GameScene");
+    }
+    private IEnumerator Animate()
+    {
+        inMiddle = false;
+        while (!inMiddle)
+        {
+            sr.flipX = !sr.flipX;
+            yield return new WaitForSeconds(0.25f);
+        }
     }
 }

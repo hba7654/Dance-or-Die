@@ -28,14 +28,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2780394227639727042}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.17364816, w: 0.9848078}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 20}
 --- !u!212 &1657607052223352969
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 367117374, guid: dbb1680e2230a674181c6e9131e705e1, type: 3}
+  m_Sprite: {fileID: 86056584, guid: ca4abe678eb806e40af7c4a1df5c0192, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -178,6 +178,9 @@ MonoBehaviour:
   roundsToSpawnItems: 0
   doors: []
   scoreText: {fileID: 0}
+  playerSprites:
+  - {fileID: 86056584, guid: ca4abe678eb806e40af7c4a1df5c0192, type: 3}
+  - {fileID: 75753290, guid: 8debd2edd0255ef44a3f238b8d559adf, type: 3}
 --- !u!114 &6590065824357428940
 MonoBehaviour:
   m_ObjectHideFlags: 0
