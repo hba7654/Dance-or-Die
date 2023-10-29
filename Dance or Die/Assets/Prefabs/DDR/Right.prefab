@@ -99,13 +99,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c351e42d388f7f4e8936c513f77baff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
   arrowSpeed: 10
   arrowSpeedMult: 0.5
   arrowDir: {x: -1, y: 0}
-  canMove: 1
   input1: 275
   input2: 100
+  dodgeSprite: {fileID: 21300000, guid: a591570271b883244b958d9a763359b0, type: 3}
+  idleSprite: {fileID: 21300000, guid: ca8418594d5c6b54e9bc00f79151248e, type: 3}
 --- !u!61 &8892282522429864722
 BoxCollider2D:
   m_ObjectHideFlags: 0

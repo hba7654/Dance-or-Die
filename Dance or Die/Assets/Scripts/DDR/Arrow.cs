@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,6 +12,14 @@ public class Arrow : MonoBehaviour
     [SerializeField] private Vector2 arrowDir;
     [SerializeField] private KeyCode input1;
     [SerializeField] private KeyCode input2;
+    [SerializeField] private Sprite dodgeSprite;
+    [SerializeField] private Sprite idleSprite;
+
+    private Text livesText;
+    private SpriteRenderer player;
+    private SpriteRenderer sr;
+
+    private static int lives = 5;
 
     private Score scoreType;
     private bool acceptingInput;
@@ -30,6 +39,12 @@ public class Arrow : MonoBehaviour
         acceptingInput = false;
 
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
+        livesText = GameObject.Find("Lives").GetComponent<Text>();
+        livesText.text = "Lives: " + lives;
+
+        player = GameObject.Find("Player").GetComponent<SpriteRenderer>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -40,23 +55,25 @@ public class Arrow : MonoBehaviour
 
         if (acceptingInput && (Input.GetKeyDown(input1) || Input.GetKeyDown(input2)))
         {
+            StartCoroutine(Dodge());
+
             switch (scoreType)
             {
                 case Score.Perfect:
                     gameManager.timer -= 10;
                     //gameManager.curScore += 100;
                     //GameManager.score += 100;
-                    Destroy(gameObject);
+                    // Destroy(gameObject);
                     break;
                 case Score.Good:
                     //gameManager.curScore += 50;
                     //GameManager.score += 50;
-                    Destroy(gameObject);
-                    break;
+                    // Destroy(gameObject);
                 case Score.OK:
                     //gameManager.curScore += 25;
                     //GameManager.score += 25;
-                    Destroy(gameObject);
+                    // Destroy(gameObject);
+                    sr.enabled = false;
                     break;
                 case Score.Death:
                     Death();
@@ -75,7 +92,6 @@ public class Arrow : MonoBehaviour
     {
         if (scoreType == Score.Death)
             Death();
-        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -94,7 +110,7 @@ public class Arrow : MonoBehaviour
                 scoreType = Score.OK;
                 break;
         }
-        Debug.Log("Score type is " + scoreType.ToString());
+        // Debug.Log("Score type is " + scoreType.ToString());
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -106,7 +122,28 @@ public class Arrow : MonoBehaviour
 
     private void Death()
     {
-        SceneManager.LoadScene("DeathScene");
+        lives--;
+        livesText.text = "Lives: " + lives;
+
+        if (lives == 0)
+        {
+            SceneManager.LoadScene("DeathScene");
+        }
+    }
+
+    private IEnumerator Dodge()
+    {
+     
+        player.sprite = dodgeSprite;
+        Debug.Log("Dodging");
+
+        yield return new WaitForSeconds(0.5f);
+
+        player.sprite = idleSprite;
+        Debug.Log("idle");
+
+        Destroy(gameObject);
+        yield return null;
     }
 
 }
