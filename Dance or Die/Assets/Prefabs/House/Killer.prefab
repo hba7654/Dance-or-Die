@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1657607052223352969}
   - component: {fileID: 182913835966006690}
   - component: {fileID: 449072889729553372}
+  - component: {fileID: 2613242772253971159}
   m_Layer: 0
   m_Name: Killer
   m_TagString: Killer
@@ -148,3 +149,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &2613242772253971159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2780394227639727042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5edae6a3d55a8247af471688b0d6ac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

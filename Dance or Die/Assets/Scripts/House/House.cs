@@ -31,6 +31,7 @@ public class House : MonoBehaviour
     [SerializeField] private Text livesText;
     [SerializeField] private Sprite[] playerSprites;
     [SerializeField] private Sprite[] killerSprites;
+    [SerializeField] private SpriteRenderer floor;
 
     private enum Direction
     {
@@ -90,7 +91,7 @@ public class House : MonoBehaviour
         {
             StartCoroutine(Animate());
             dirVector = context.ReadValue<Vector2>();
-            transform.rotation = Quaternion.AngleAxis(Mathf.Rad2Deg * Mathf.Atan2(dirVector.x, -dirVector.y) + 20, new Vector3(0, 0, 1));
+            transform.rotation = Quaternion.AngleAxis(Mathf.Rad2Deg * Mathf.Atan2(dirVector.x, -dirVector.y), new Vector3(0, 0, 1));
             if (dirVector.x > 0)
             {
                 direction = Direction.Right;
@@ -113,9 +114,17 @@ public class House : MonoBehaviour
     private void NewRoom()
     {
         GameManager.score += 25;
+        floor.color = Color.HSVToRGB(Random.Range(0, 1f), 1, 1);
+        if(Random.Range(0, 1f) < 0.5f)
+            floor.flipX = true;
+        else floor.flipX = false;
+        if (Random.Range(0, 1f) < 0.5f)
+            floor.flipY = true;
+        else floor.flipY = false;
+
 
         //Reactivate all doors
-        for(int i = 0; i < doors.Length; i++)
+        for (int i = 0; i < doors.Length; i++)
         {
             doors[i].SetActive(true);
         }
