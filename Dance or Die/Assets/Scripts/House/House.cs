@@ -13,6 +13,7 @@ public class House : MonoBehaviour
     private GameObject killerInstance;
     private Vector2 killerDirVector;
     private int numRounds;
+    private bool isSafe;
 
     [SerializeField] private float speed;
     [SerializeField] private float killerSpeed;
@@ -21,6 +22,7 @@ public class House : MonoBehaviour
     [SerializeField] private Transform[] killerSpawnPoints;
     [SerializeField] private Transform[] itemSpawnPoints;
     [SerializeField] private int roundsToSpawnItems;
+    [SerializeField] private GameObject[] doors;
 
     [SerializeField] private Text scoreText;
 
@@ -38,6 +40,7 @@ public class House : MonoBehaviour
         direction = Direction.None;
         dirVector = Vector2.zero;
         numRounds = 0;
+        isSafe = false;
     }
 
     private void Update()
@@ -51,13 +54,23 @@ public class House : MonoBehaviour
         //Entering new rooms
         if (Mathf.Abs(transform.position.x) >= 5.5)
         {
-            transform.position = new Vector3(-transform.position.x, transform.position.y, transform.position.z);
-            NewRoom();
+            if (isSafe)
+            {
+                transform.position = new Vector3(-transform.position.x, transform.position.y, transform.position.z);
+                NewRoom();
+            }
+            else
+                Caught();
         }
         else if (Mathf.Abs(transform.position.y) >= 5.5)
         {
-            transform.position = new Vector3(transform.position.x, -transform.position.y, transform.position.z);
-            NewRoom();
+            if (isSafe)
+            {
+                transform.position = new Vector3(transform.position.x, -transform.position.y, transform.position.z);
+                NewRoom();
+            }
+            else
+                Caught();
         }
     }
 
@@ -81,9 +94,22 @@ public class House : MonoBehaviour
     {
         GameManager.score += 25;
 
+        //Reactivate all doors
+        for(int i = 0; i < doors.Length; i++)
+        {
+            doors[i].SetActive(true);
+        }
+
         Destroy(killerInstance);
         numRounds++;
 
+        //Randomize Doors
+        if (Random.Range(0, 1f) < 0.5)
+        {
+            doors[Random.Range(0, doors.Length)].SetActive(false);
+        }
+
+        //Generate Items
         if(numRounds >= roundsToSpawnItems)
         {
             int numItemsToSpawn = Random.Range(0, 4);
@@ -116,12 +142,15 @@ public class House : MonoBehaviour
             direction = Direction.None;
             dirVector = Vector2.zero;
             transform.position = Vector3.zero;
+            isSafe = false;
 
             //Spawn killer
             StartCoroutine(SpawnKiller());
-            }
+        }
         else if (collision.tag == "Killer")
-            SceneManager.LoadScene("GameScene");
+            Caught();
+        else if (collision.tag == "Door")
+            isSafe = true;
     }
 
     private IEnumerator SpawnKiller()
@@ -135,5 +164,10 @@ public class House : MonoBehaviour
         killerDirVector = -(killerSpawnPoints[randPos].position - transform.position).normalized;
 
         yield return null;
+    }
+
+    private void Caught()
+    {
+        SceneManager.LoadScene("GameScene");
     }
 }

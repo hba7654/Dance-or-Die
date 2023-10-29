@@ -127,6 +127,7 @@ public class Arrow : MonoBehaviour
 
         if (lives == 0)
         {
+            lives = 5;
             SceneManager.LoadScene("DeathScene");
         }
     }

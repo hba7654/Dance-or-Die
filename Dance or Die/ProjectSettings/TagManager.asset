@@ -9,6 +9,7 @@ TagManager:
   - OK
   - LastOK
   - Killer
+  - Door
   layers:
   - Default
   - TransparentFX
