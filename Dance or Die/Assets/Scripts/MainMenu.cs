@@ -6,9 +6,13 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    public static float volume;
+
     [SerializeField] private Text scoreText;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject howToPlayMenu;
+    [SerializeField] private Slider volSlider;
+    [SerializeField] private AudioSource musicPlayer;
     private void Start()
     {
         if (scoreText != null)
@@ -16,6 +20,15 @@ public class MainMenu : MonoBehaviour
             scoreText.text = "Score: " + GameManager.score;
             GameManager.score = 0;
             GameManager.numTimesCaught = 0;
+        }
+    }
+
+    private void Update()
+    {
+        if(volSlider != null)
+        {
+            volume = volSlider.value;
+            musicPlayer.volume = volume;
         }
     }
 

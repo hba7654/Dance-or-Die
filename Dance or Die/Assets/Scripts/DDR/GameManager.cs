@@ -63,6 +63,8 @@ public class GameManager : MonoBehaviour
             score += 50;
             SceneManager.LoadScene("HouseScene");
         }
+
+        musicPlayer.volume = MainMenu.volume;
     }
 
     private void CreateArrow(int num)

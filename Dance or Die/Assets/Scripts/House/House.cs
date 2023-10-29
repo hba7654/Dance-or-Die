@@ -32,6 +32,7 @@ public class House : MonoBehaviour
     [SerializeField] private Sprite[] playerSprites;
     [SerializeField] private Sprite[] killerSprites;
     [SerializeField] private SpriteRenderer floor;
+    [SerializeField] private AudioSource music;
 
     private enum Direction
     {
@@ -83,6 +84,7 @@ public class House : MonoBehaviour
             else
                 Caught();
         }
+        music.volume = MainMenu.volume;
     }
 
     public void Input(InputAction.CallbackContext context)
