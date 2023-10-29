@@ -19,7 +19,7 @@ public class Arrow : MonoBehaviour
     private SpriteRenderer player;
     private SpriteRenderer sr;
 
-    private static int lives = 5;
+    public static int lives = 5;
 
     private Score scoreType;
     private bool acceptingInput;

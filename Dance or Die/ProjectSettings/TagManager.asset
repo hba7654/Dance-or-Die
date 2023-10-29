@@ -10,6 +10,8 @@ TagManager:
   - LastOK
   - Killer
   - Door
+  - DoublePoints
+  - Health
   layers:
   - Default
   - TransparentFX

@@ -14,6 +14,7 @@ public class House : MonoBehaviour
     private Vector2 killerDirVector;
     private int numRounds;
     private bool isSafe;
+    private GameObject itemSpawned;
 
     [SerializeField] private float speed;
     [SerializeField] private float killerSpeed;
@@ -100,6 +101,9 @@ public class House : MonoBehaviour
             doors[i].SetActive(true);
         }
 
+        //Clear all items
+        Destroy(itemSpawned);
+
         Destroy(killerInstance);
         numRounds++;
 
@@ -107,18 +111,6 @@ public class House : MonoBehaviour
         if (Random.Range(0, 1f) < 0.5)
         {
             doors[Random.Range(0, doors.Length)].SetActive(false);
-        }
-
-        //Generate Items
-        if(numRounds >= roundsToSpawnItems)
-        {
-            int numItemsToSpawn = Random.Range(0, 4);
-            GameObject[] itemsSpawned = new GameObject[numItemsToSpawn];
-            for(int i = 0; i < numItemsToSpawn; i++) 
-            {
-                Transform itemSpawnPos = itemSpawnPoints[Random.Range(0, itemSpawnPoints.Length)];
-                //itemsSpawned[i] = Instantiate(items[i],)
-            }
         }
     }
 
@@ -137,20 +129,42 @@ public class House : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Finish" && numRounds > 0)
+        switch(collision.tag)
         {
-            direction = Direction.None;
-            dirVector = Vector2.zero;
-            transform.position = Vector3.zero;
-            isSafe = false;
+            case "Finish":
+                if(numRounds > 0)
+                {
+                    direction = Direction.None;
+                    dirVector = Vector2.zero;
+                    transform.position = Vector3.zero;
+                    isSafe = false;
 
-            //Spawn killer
-            StartCoroutine(SpawnKiller());
+                    //Spawn killer
+                    StartCoroutine(SpawnKiller());
+
+                    //Generate Items
+                    if (numRounds >= roundsToSpawnItems)
+                    {
+                        Transform itemSpawnPos = itemSpawnPoints[Random.Range(0, itemSpawnPoints.Length)];
+                        itemSpawned = Instantiate(items[Random.Range(0, items.Length)], itemSpawnPos.position, Quaternion.identity);
+                    }
+                }
+                break;
+            case "Killer":
+                Caught();
+                break;
+            case "Door":
+                isSafe = true;
+                break;
+            case "DoublePoints":
+                GameManager.score += 25;
+                Destroy(collision.gameObject);
+                break;
+            case "Health":
+                Arrow.lives++;
+                Destroy(collision.gameObject);
+                break;
         }
-        else if (collision.tag == "Killer")
-            Caught();
-        else if (collision.tag == "Door")
-            isSafe = true;
     }
 
     private IEnumerator SpawnKiller()
