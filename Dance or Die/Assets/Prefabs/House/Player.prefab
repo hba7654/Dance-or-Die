@@ -149,7 +149,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.05
+  m_Radius: 0.2
 --- !u!114 &1153821475349471754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,9 +163,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  killerSpeed: 6
+  killerSpeed: 5
   killer: {fileID: 2780394227639727042, guid: 2704ad782e3ad914b8494f799434d819, type: 3}
-  items: []
+  items:
+  - {fileID: 7522861055349190345, guid: 0eb4038d78b7872458af54c29ca27db5, type: 3}
+  - {fileID: 2844538134531089341, guid: 2ab21b99a49c1cc42b993ec96e42145b, type: 3}
+  - {fileID: 3379331251580237733, guid: c84e62a7f8b37934889c343fc7664ec9, type: 3}
   killerSpawnPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -173,6 +176,8 @@ MonoBehaviour:
   - {fileID: 0}
   itemSpawnPoints: []
   roundsToSpawnItems: 0
+  doors: []
+  scoreText: {fileID: 0}
 --- !u!114 &6590065824357428940
 MonoBehaviour:
   m_ObjectHideFlags: 0

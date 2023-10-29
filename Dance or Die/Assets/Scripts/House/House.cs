@@ -114,19 +114,6 @@ public class House : MonoBehaviour
         }
     }
 
-    //private void OnBecameInvisible()
-    //{
-    //    Destroy(killerInstance);
-    //    numRounds++;
-
-    //    if(Mathf.Abs(transform.position.y) >= 0.1f)
-    //        transform.position = new Vector3(transform.position.x, -transform.position.y, transform.position.z);
-
-    //    else
-    //        transform.position = new Vector3(-transform.position.x, transform.position.y, transform.position.z);
-
-    //}
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         switch(collision.tag)
@@ -174,7 +161,7 @@ public class House : MonoBehaviour
         //yield return new WaitForSeconds(timeToWait);
 
         int randPos = Random.Range(0, killerSpawnPoints.Length);
-        killerInstance = Instantiate(killer, killerSpawnPoints[randPos].position, Quaternion.identity);
+        killerInstance = Instantiate(killer, killerSpawnPoints[randPos]);
         killerDirVector = -(killerSpawnPoints[randPos].position - transform.position).normalized;
 
         yield return null;

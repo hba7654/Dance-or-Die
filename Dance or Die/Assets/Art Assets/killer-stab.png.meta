@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a591570271b883244b958d9a763359b0
+guid: 62f30454ec3fa994d983de3e0f99cd1c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -149,22 +149,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: P_Right_Lean_0
+      name: killer-stab_0
       rect:
         serializedVersion: 2
-        x: 481
-        y: 417
-        width: 1082
-        height: 1488
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 654
+        y: 242
+        width: 547
+        height: 408
+      alignment: 9
+      pivot: {x: 0.73, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 374efaf0b83da004b9868ab8ca41bfe9
-      internalID: -536427161
+      spriteID: c9896bfaeea84da4e82205e24602d335
+      internalID: 625151456
       vertices: []
       indices: 
       edges: []
@@ -180,7 +180,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      P_Right_Lean_0: -536427161
+      killer-stab_0: 625151456
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

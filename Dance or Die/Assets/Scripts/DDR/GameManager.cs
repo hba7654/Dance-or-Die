@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
             randomNum = UnityEngine.Random.Range(0,arrows.Length);
             CreateArrow(randomNum);
         }
-        scoreText.text = "DANCE! " + timer;
+        scoreText.text = String.Format("DANCE! {0:F2}",timer);
 
         if (timer <= 0)
         {

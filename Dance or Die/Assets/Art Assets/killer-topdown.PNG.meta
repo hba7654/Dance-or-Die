@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a591570271b883244b958d9a763359b0
+guid: a8c90a2a80932ff4c88f266db104f2e8
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -149,22 +149,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: P_Right_Lean_0
+      name: killer-topdown_0
       rect:
         serializedVersion: 2
-        x: 481
-        y: 417
-        width: 1082
-        height: 1488
+        x: 820
+        y: 1826
+        width: 423
+        height: 635
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 374efaf0b83da004b9868ab8ca41bfe9
-      internalID: -536427161
+      spriteID: bc5eabbfe66ea4443b57271d4eca0ed6
+      internalID: -559987358
       vertices: []
       indices: 
       edges: []
@@ -180,7 +180,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      P_Right_Lean_0: -536427161
+      killer-topdown_0: -559987358
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

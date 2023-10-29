@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Arrow : MonoBehaviour
 {
+    [SerializeField] private bool canMove;
     [SerializeField] private float arrowSpeed;
     [SerializeField] private float arrowSpeedMult;
     [SerializeField] private Vector2 arrowDir;
@@ -14,9 +15,12 @@ public class Arrow : MonoBehaviour
     [SerializeField] private KeyCode input2;
     [SerializeField] private Sprite dodgeSprite;
     [SerializeField] private Sprite idleSprite;
+    [SerializeField] private Sprite stabSprite;
+    [SerializeField] private Sprite standSprite;
 
     private Text livesText;
     private SpriteRenderer player;
+    private SpriteRenderer killer;
     private SpriteRenderer sr;
     private BoxCollider2D box;
 
@@ -45,6 +49,8 @@ public class Arrow : MonoBehaviour
         livesText.text = "Lives: " + lives;
 
         player = GameObject.Find("Player").GetComponent<SpriteRenderer>();
+        killer = GameObject.Find("Killer").GetComponent<SpriteRenderer>();
+
         sr = GetComponent<SpriteRenderer>();
         box = GetComponent<BoxCollider2D>();
     }
@@ -52,10 +58,10 @@ public class Arrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += (Vector3)arrowDir * (arrowSpeed + arrowSpeedMult * GameManager.numTimesCaught) * Time.deltaTime;
-        //Debug.Log("Score is now " + scoreType.ToString());
+        if(canMove)
+            transform.position += (Vector3)arrowDir * (arrowSpeed + arrowSpeedMult * GameManager.numTimesCaught) * Time.deltaTime;
 
-        if (acceptingInput && (Input.GetKeyDown(input1) || Input.GetKeyDown(input2)))
+        if (/*acceptingInput && */(Input.GetKeyDown(input1) || Input.GetKeyDown(input2)))
         {
             StartCoroutine(Dodge());
 
@@ -65,13 +71,16 @@ public class Arrow : MonoBehaviour
                     gameManager.timer -= 10;
                     sr.enabled = false;
                     box.enabled = false;
+                    StartCoroutine(Stab());
                     break;
                 case Score.Good:
                 case Score.OK:
                     sr.enabled = false;
                     box.enabled = false;
+                    StartCoroutine(Stab());
                     break;
                 case Score.Death:
+                    StartCoroutine(Stab());
                     Death();
                     break;
                 default:
@@ -113,6 +122,7 @@ public class Arrow : MonoBehaviour
         if(collision.tag == "LastOK")
         {
             scoreType = Score.Death;
+            StartCoroutine(Stab());
         }
     }
 
@@ -134,12 +144,26 @@ public class Arrow : MonoBehaviour
         player.sprite = dodgeSprite;
         Debug.Log("Dodging");
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f / GameManager.numTimesCaught);
 
         player.sprite = idleSprite;
         Debug.Log("idle");
 
-        Destroy(gameObject);
+        if(canMove)
+            Destroy(gameObject);
+        yield return null;
+    }
+
+    private IEnumerator Stab()
+    {
+        killer.sprite = stabSprite;
+        Debug.Log("Dodging");
+
+        yield return new WaitForSeconds(0.5f / GameManager.numTimesCaught);
+
+        killer.sprite = standSprite;
+        Debug.Log("idle");
+
         yield return null;
     }
 
